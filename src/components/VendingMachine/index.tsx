@@ -16,6 +16,7 @@ const VendingMachine: React.FC = () => {
         selectDrink,
         insertCash,
         toggleInsertCard,
+        cardBalance,
     } = useVendingMachine();
 
     return (
@@ -44,6 +45,7 @@ const VendingMachine: React.FC = () => {
                 </div>
 
                 <Insert
+                    cardBalance={cardBalance}
                     balance={balance}
                     paymentMode={paymentMode}
                     onReturn={returnChange}
@@ -51,6 +53,7 @@ const VendingMachine: React.FC = () => {
                 >
                     {CASH_OPTIONS.map((option) => (
                         <CashButton
+                            isCardMode={paymentMode === 'card'}
                             key={option}
                             option={option}
                             onClick={() => insertCash(option)}

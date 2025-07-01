@@ -55,6 +55,11 @@ export const useVendingMachine = () => {
 
     const selectDrink = useCallback(
         (drinkId: number) => {
+            if (paymentMode === '') {
+                setMessage({ text: '현금/카드 넣어주세요', status: 'error' });
+                return;
+            }
+
             const drink = drinks.find((d) => d.id === drinkId);
 
             if (!drink) {
@@ -72,13 +77,12 @@ export const useVendingMachine = () => {
                 return;
             }
 
+            const newBalance = balance - drink.price;
             if (paymentMode === 'cash') {
-                const newBalance = balance - drink.price;
                 const newCashBalance = cashBalance - drink.price;
                 setBalance(newBalance);
                 setCashBalance(newCashBalance);
             } else if (paymentMode === 'card') {
-                const newBalance = balance - drink.price;
                 const newCardBalance = cardBalance - drink.price;
                 setBalance(newBalance);
                 setCardBalance(newCardBalance);
@@ -124,5 +128,6 @@ export const useVendingMachine = () => {
         toggleInsertCard,
         selectDrink,
         returnChange,
+        cardBalance,
     };
 };
