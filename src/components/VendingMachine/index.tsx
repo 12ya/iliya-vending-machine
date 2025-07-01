@@ -17,10 +17,9 @@ const VendingMachine: React.FC = () => {
                 <div className='p-6 mb-6 bg-black border-2 border-yellow-400 rounded-lg shadow-inner'>
                     <div className='p-4 bg-gray-900 border border-gray-600 rounded'>
                         <p
-                            className={`font-mono text-2xl text-center text-green-400 tracking-wide ${
-                                message.status === 'error' ? 'text-red-400' : ''
+                            className={`font-mono text-2xl text-center tracking-wide min-h-8 ${
+                                message.status === 'error' ? 'text-red-400' : 'text-green-400'
                             }`}
-                            data-testid='message-display'
                         >
                             {message.message}
                         </p>
