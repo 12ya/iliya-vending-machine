@@ -31,7 +31,6 @@ export const useVendingMachine = () => {
     );
 
     const insertCard = useCallback(() => {
-        console.log('insertCarjfsidjofisjd', paymentMode);
         if (paymentMode === 'card') {
             setPaymentMode('');
             return;
