@@ -17,12 +17,9 @@ export const useVendingMachine = () => {
         status: 'success',
     });
 
-    const insertCoin = useCallback((amount: number) => {
-        setBalance((prevBalance) => {
-            const newBalance = prevBalance + amount;
-            setMessage({ text: `${newBalance.toLocaleString()}원`, status: 'success' });
-            return newBalance;
-        });
+    const insertCash = useCallback((amount: number) => {
+        setBalance((prevBalance) => prevBalance + amount);
+        setMessage({ text: `${amount}원을 투입했습니다.`, status: 'success' });
     }, []);
 
     const selectDrink = useCallback(
@@ -73,7 +70,7 @@ export const useVendingMachine = () => {
         drinks,
         balance,
         message,
-        insertCoin,
+        insertCash,
         selectDrink,
         returnChange,
     };
