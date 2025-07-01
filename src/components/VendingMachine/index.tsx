@@ -7,7 +7,16 @@ import { Insert } from './Insert';
 import { Display } from './Display';
 
 const VendingMachine: React.FC = () => {
-    const { drinks, balance, message, returnChange, selectDrink, insertCash } = useVendingMachine();
+    const {
+        drinks,
+        balance,
+        paymentMode,
+        message,
+        returnChange,
+        selectDrink,
+        insertCash,
+        insertCard,
+    } = useVendingMachine();
 
     return (
         <div className='w-full max-w-2xl mx-auto p-4 md:p-8 bg-black border-4 border-cyan-400 rounded-lg shadow-2xl shadow-cyan-400/20'>
@@ -19,7 +28,7 @@ const VendingMachine: React.FC = () => {
                 <div className='mb-4 md:mb-6'>
                     <Display borderColor='border-yellow-400'>
                         <p
-                            className={`font-mono text-[0.8rem] md:text-2xl text-center tracking-wide break-words ${
+                            className={`font-mono text-lg md:text-2xl text-center tracking-wide break-words text-[0.8rem] ${
                                 message.status === 'error' ? 'text-red-400' : 'text-green-400'
                             }`}
                         >
@@ -34,7 +43,12 @@ const VendingMachine: React.FC = () => {
                     ))}
                 </div>
 
-                <Insert balance={balance} onReturn={returnChange}>
+                <Insert
+                    balance={balance}
+                    paymentMode={paymentMode}
+                    onReturn={returnChange}
+                    onUseCard={insertCard}
+                >
                     {CASH_OPTIONS.map((option) => (
                         <CashButton
                             key={option}
