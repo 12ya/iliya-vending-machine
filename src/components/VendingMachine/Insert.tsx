@@ -25,7 +25,7 @@ export const Insert = ({ children, balance, onReturn }: InsertProps) => {
             </div>
             <button
                 onClick={onReturn}
-                className='w-full px-4 py-4 md:py-3 font-mono font-bold text-sm md:text-base text-black bg-yellow-400 border-2 border-yellow-300 rounded hover:bg-yellow-300 hover:shadow-lg hover:shadow-yellow-400/30 active:bg-yellow-500 transition-all min-h-[48px]'
+                className='w-full px-4 py-4 md:py-3 font-mono font-bold text-sm md:text-base text-black bg-yellow-400 border-2 border-yellow-300 rounded hover:bg-yellow-300 hover:shadow-lg hover:shadow-yellow-400/30 active:bg-yellow-500 transition-all min-h-12'
             >
                 [ 반환 ]
             </button>
