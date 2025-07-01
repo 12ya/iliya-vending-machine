@@ -1,8 +1,10 @@
 import React from 'react';
 import { CASH_OPTIONS, useVendingMachine } from './hooks/useVendingMachine';
-import { DrinkComponent } from './DrinkComponent';
+
+import { Drink } from './Drink';
 import { CashButton } from './CashButton';
-import { InsertComponent } from './InsertComponent';
+import { Insert } from './Insert';
+import { Display } from './Display';
 
 const VendingMachine: React.FC = () => {
     const { drinks, balance, message, returnChange, selectDrink, insertCash } = useVendingMachine();
@@ -14,29 +16,25 @@ const VendingMachine: React.FC = () => {
                     || 12'S 자판기 ||
                 </h1>
 
-                <div className='p-4 md:p-6 mb-4 md:mb-6 bg-black border-2 border-yellow-400 rounded-lg shadow-inner'>
-                    <div className='p-3 md:p-4 bg-gray-900 border border-gray-600 rounded'>
+                <div className='mb-4 md:mb-6'>
+                    <Display borderColor='border-yellow-400'>
                         <p
-                            className={`font-mono text-lg md:text-2xl text-[0.8rem] text-center tracking-wide break-words h-8 ${
+                            className={`font-mono text-[0.8rem] md:text-2xl text-center tracking-wide break-words ${
                                 message.status === 'error' ? 'text-red-400' : 'text-green-400'
                             }`}
                         >
                             {'>>'} {message.text} {'<<'}
                         </p>
-                    </div>
+                    </Display>
                 </div>
 
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-4 md:mb-6'>
                     {drinks.map((drink) => (
-                        <DrinkComponent
-                            key={drink.id}
-                            drink={drink}
-                            onClick={() => selectDrink(drink.id)}
-                        />
+                        <Drink key={drink.id} drink={drink} onClick={() => selectDrink(drink.id)} />
                     ))}
                 </div>
 
-                <InsertComponent balance={balance} onReturn={returnChange}>
+                <Insert balance={balance} onReturn={returnChange}>
                     {CASH_OPTIONS.map((option) => (
                         <CashButton
                             key={option}
@@ -44,7 +42,7 @@ const VendingMachine: React.FC = () => {
                             onClick={() => insertCash(option)}
                         />
                     ))}
-                </InsertComponent>
+                </Insert>
             </div>
         </div>
     );

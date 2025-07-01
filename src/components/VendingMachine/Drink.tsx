@@ -1,6 +1,10 @@
-import type { Drink } from './types/Drink';
+import type { Drink as DrinkType } from './types/Drink';
 
-export const DrinkComponent = ({ drink, onClick }: { drink: Drink; onClick: () => void }) => {
+type DrinkProps = {
+    drink: DrinkType;
+    onClick: () => void;
+};
+export const Drink = ({ drink, onClick }: DrinkProps) => {
     return (
         <button
             onClick={onClick}
@@ -13,7 +17,11 @@ export const DrinkComponent = ({ drink, onClick }: { drink: Drink; onClick: () =
         >
             <p className='text-base md:text-lg font-bold text-yellow-400'>[{drink.name}]</p>
             <p className='text-sm md:text-base text-green-400'>₩{drink.price}</p>
-            <p className={`text-sm md:text-base ${drink.stock > 0 ? 'text-cyan-300' : 'text-red-400'}`}>
+            <p
+                className={`text-sm md:text-base ${
+                    drink.stock > 0 ? 'text-cyan-300' : 'text-red-400'
+                }`}
+            >
                 재고: {drink.stock}
             </p>
         </button>

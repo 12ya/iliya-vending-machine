@@ -61,9 +61,10 @@ export const useVendingMachine = () => {
                 status: 'success',
             });
             setBalance(0);
-        } else {
-            setMessage({ text: '반환할 잔돈이 없습니다', status: 'error' });
+            return;
         }
+
+        setMessage({ text: '반환할 잔돈이 없습니다', status: 'error' });
     }, [balance]);
 
     return {
