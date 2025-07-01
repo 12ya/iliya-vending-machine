@@ -26,7 +26,7 @@ This project is a simple vending machine application built with React, TypeScrip
 
 ## Project Structure
 
--   **Core Logic:** The main vending machine logic, including state management for drinks, balance, and messages, is encapsulated within the `useVendingMachine` custom hook located at `src/components/VendingMachine/hooks/useVendingMachine.ts`.
+-   **Core Logic:** The main vending machine logic, including state management for drinks, balance, and messages, is encapsulated within the `useVendingMachine` custom hook located at `src/hooks/use-vending-machine.ts`.
 -   **Main Component:** The primary `VendingMachine` component, which orchestrates the UI and integrates the core logic, is found at `src/components/VendingMachine/index.tsx`.
 -   **Sub-Components:** Other files within the `src/components/VendingMachine/` directory (e.g., `CashButton.tsx`, `DrinkComponent.tsx`, `InsertComponent.tsx`) are individual UI components that make up the vending machine interface.
 
