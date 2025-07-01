@@ -20,16 +20,16 @@ const VendingMachine: React.FC = () => {
     } = useVendingMachine();
 
     return (
-        <div className='w-full max-w-2xl mx-auto p-4 md:p-8 bg-black border-4 border-cyan-400 rounded-lg shadow-2xl shadow-cyan-400/20'>
-            <div className='p-4 md:p-6 bg-gray-900 border-2 border-gray-700 rounded-lg'>
-                <h1 className='mb-4 md:mb-6 text-2xl md:text-4xl font-bold text-center text-cyan-400 font-mono tracking-wider'>
+        <div className='w-full max-w-2xl mx-auto p-2 md:p-6 bg-black border-4 border-cyan-400 rounded-lg shadow-2xl shadow-cyan-400/20'>
+            <div className='p-2 md:p-5 bg-gray-900 border-2 border-gray-700 rounded-lg'>
+                <h1 className='mb-2 md:mb-5 text-xl md:text-3xl font-bold text-center text-cyan-400 font-mono tracking-wider'>
                     || 12'S 자판기 ||
                 </h1>
 
-                <div className='mb-4 md:mb-6'>
+                <div className='mb-2 md:mb-5'>
                     <Display borderColor='border-yellow-400'>
                         <p
-                            className={`font-mono text-lg md:text-2xl text-center tracking-wide break-words text-[0.8rem] ${
+                            className={`font-mono text-base md:text-xl text-center tracking-wide break-words text-[0.8rem] ${
                                 message.status === 'error' ? 'text-red-400' : 'text-green-400'
                             }`}
                         >
@@ -38,7 +38,7 @@ const VendingMachine: React.FC = () => {
                     </Display>
                 </div>
 
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-4 md:mb-6'>
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-3 mb-2 md:mb-5'>
                     {drinks.map((drink) => (
                         <Drink key={drink.id} drink={drink} onClick={() => selectDrink(drink.id)} />
                     ))}
