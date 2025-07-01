@@ -21,7 +21,7 @@ const VendingMachine: React.FC = () => {
                                 message.status === 'error' ? 'text-red-400' : 'text-green-400'
                             }`}
                         >
-                            {message.message}
+                            {message.text}
                         </p>
                     </div>
                 </div>
