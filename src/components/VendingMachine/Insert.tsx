@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react';
-import { Display } from './Display';
 import type { PaymentMode } from './types/PaymentMode';
+
+import { Display } from './Display';
+import { BalanceDisplay } from './BalanceDisplay';
 
 type InsertProps = {
     children: ReactNode;
@@ -20,8 +22,8 @@ export const Insert = ({
 }: InsertProps) => {
     const isCardMode = paymentMode === 'card';
     return (
-        <div className='p-1 md:p-3 bg-gray-800 border-2 border-gray-600 rounded-lg'>
-            <h2 className='mb-1 md:mb-3 text-base md:text-lg font-bold text-cyan-400 font-mono tracking-wide'>
+        <div className='p-1 bg-gray-800 border-2 border-gray-600 rounded-lg md:p-3'>
+            <h2 className='mb-1 font-mono text-base font-bold tracking-wide md:mb-3 md:text-lg text-cyan-400'>
                 [ 결제 수단 ]
             </h2>
 
@@ -39,26 +41,15 @@ export const Insert = ({
             </div>
 
             <div className='mb-1 md:mb-3'>
-                <h3 className='text-sm md:text-base font-bold text-cyan-300 font-mono mb-1'>
+                <h3 className='mb-1 font-mono text-sm font-bold md:text-base text-cyan-300'>
                     [ 현금 투입 ]
                 </h3>
-                <div className='grid grid-cols-2 md:flex md:justify-around gap-1'>{children}</div>
+                <div className='grid grid-cols-2 gap-1 md:flex md:justify-around'>{children}</div>
             </div>
 
             <div className='mb-1 md:mb-4'>
                 <Display borderColor='border-green-400'>
-                    <div className='font-mono text-base md:text-xl text-green-400 text-center'>
-                        {isCardMode ? (
-                            <>
-                                카드: <span className='text-blue-400'>승인됨</span>
-                            </>
-                        ) : (
-                            <>
-                                잔액: ₩
-                                <span className='text-yellow-400'>{balance.toLocaleString()}</span>
-                            </>
-                        )}
-                    </div>
+                    <BalanceDisplay balance={balance} isCardMode={isCardMode} />
                 </Display>
             </div>
 

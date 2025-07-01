@@ -98,11 +98,15 @@ export const useVendingMachine = () => {
         [balance, drinks, paymentMode, cashBalance, cardBalance]
     );
 
+    const removeCard = useCallback(() => {
+        setPaymentMode('cash');
+        setMessage({ text: '현금/카드 넣어주세요', status: 'success' });
+        setBalance(cashBalance);
+    }, [cashBalance]);
+
     const returnChange = useCallback(() => {
         if (paymentMode === 'card') {
-            setMessage({ text: '카드 결제가 완료되었습니다.', status: 'success' });
-            setPaymentMode('cash');
-            setBalance(cashBalance);
+            removeCard();
             return;
         }
 
@@ -117,7 +121,7 @@ export const useVendingMachine = () => {
         }
 
         setMessage({ text: '반환할 잔돈이 없습니다', status: 'error' });
-    }, [balance, paymentMode, cashBalance]);
+    }, [balance, paymentMode, cashBalance, removeCard]);
 
     return {
         drinks,
