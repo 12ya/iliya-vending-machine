@@ -30,3 +30,9 @@ This project is a simple vending machine application built with React, TypeScrip
 -   **TypeScript:** 5.8.3
 -   **Vite:** 7.0.0
 -   **Node.js:** 20.9.0
+
+
+<img width="1789" alt="Screenshot 2025-07-02 at 2 52 40 AM" src="https://github.com/user-attachments/assets/1ee0e44e-3c41-426c-b7a6-c5fb735c4770" />
+<img width="400" height="800" alt="Screenshot 2025-07-02 at 2 52 40 AM" src="https://github.com/user-attachments/assets/fa3b8f41-73ab-4121-9561-bcefa301194e" />
+
+
