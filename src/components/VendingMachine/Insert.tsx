@@ -7,9 +7,9 @@ type InsertProps = {
     balance: number;
     paymentMode: PaymentMode;
     onReturn: () => void;
-    onUseCard: () => void;
+    onToggleCard: () => void;
 };
-export const Insert = ({ children, balance, paymentMode, onReturn, onUseCard }: InsertProps) => {
+export const Insert = ({ children, balance, paymentMode, onReturn, onToggleCard }: InsertProps) => {
     return (
         <div className='p-4 md:p-6 bg-gray-800 border-2 border-gray-600 rounded-lg'>
             <h2 className='mb-3 md:mb-4 text-lg md:text-xl font-bold text-cyan-400 font-mono tracking-wide'>
@@ -18,7 +18,7 @@ export const Insert = ({ children, balance, paymentMode, onReturn, onUseCard }: 
 
             <div className='mb-4 md:mb-6'>
                 <button
-                    onClick={onUseCard}
+                    onClick={onToggleCard}
                     className={`w-full px-4 py-3 font-mono font-bold text-sm md:text-base rounded border-2 transition-all min-h-12 cursor-pointer ${
                         paymentMode === 'card'
                             ? 'bg-blue-600 border-blue-400 text-white hover:bg-blue-500'
@@ -41,7 +41,7 @@ export const Insert = ({ children, balance, paymentMode, onReturn, onUseCard }: 
                     <div className='font-mono text-lg md:text-2xl text-green-400 text-center'>
                         {paymentMode === 'card' ? (
                             <>
-                                카드: <span className='text-blue-400'>인식됨</span>
+                                카드: <span className='text-blue-400'>승인됨</span>
                             </>
                         ) : (
                             <>
@@ -57,7 +57,7 @@ export const Insert = ({ children, balance, paymentMode, onReturn, onUseCard }: 
                 onClick={onReturn}
                 className='w-full px-4 py-4 md:py-3 font-mono font-bold text-sm md:text-base text-black bg-yellow-400 border-2 border-yellow-300 rounded hover:bg-yellow-300 hover:shadow-lg hover:shadow-yellow-400/30 active:bg-yellow-500 transition-all min-h-[48px]'
             >
-                [ {paymentMode === 'card' ? '결제 완료' : '잔돈 반환'} ]
+                [ {paymentMode === 'card' ? '카드 반환' : '잔돈 반환'} ]
             </button>
         </div>
     );

@@ -13,6 +13,8 @@ export const CASH_OPTIONS = [100, 500, 1000, 5000, 10000];
 export const useVendingMachine = () => {
     const [drinks, setDrinks] = useState<Drink[]>(INITIAL_DRINKS);
     const [balance, setBalance] = useState<number>(0);
+    const [cashBalance, setCashBalance] = useState<number>(0);
+    const [cardBalance, setCardBalance] = useState<number>(3000);
     const [paymentMode, setPaymentMode] = useState<PaymentMode>('');
     const [message, setMessage] = useState<{ text: string; status: 'success' | 'error' }>({
         text: '현금/카드 넣어주세요',
@@ -21,25 +23,35 @@ export const useVendingMachine = () => {
 
     const insertCash = useCallback(
         (amount: number) => {
-            if (paymentMode !== 'cash') {
+            if (paymentMode === 'card') {
                 setPaymentMode('cash');
+                const newCashBalance = cashBalance + amount;
+                setCashBalance(newCashBalance);
+                setBalance(newCashBalance);
+                setMessage({ text: `${amount}원을 투입했습니다.`, status: 'success' });
+            } else {
+                setPaymentMode('cash');
+                const newCashBalance = cashBalance + amount;
+                setCashBalance(newCashBalance);
+                setBalance(newCashBalance);
+                setMessage({ text: `${amount}원을 투입했습니다.`, status: 'success' });
             }
-            setBalance((prevBalance) => prevBalance + amount);
-            setMessage({ text: `${amount}원을 투입했습니다.`, status: 'success' });
         },
-        [paymentMode]
+        [paymentMode, cashBalance]
     );
 
-    const insertCard = useCallback(() => {
+    const toggleInsertCard = useCallback(() => {
         if (paymentMode === 'card') {
-            setPaymentMode('');
+            setPaymentMode('cash');
+            setBalance(cashBalance);
+            setMessage({ text: '현금/카드 넣어주세요', status: 'success' });
             return;
         }
 
         setPaymentMode('card');
-        setBalance(5000);
+        setBalance(cardBalance);
         setMessage({ text: '카드가 인식되었습니다.', status: 'success' });
-    }, [paymentMode]);
+    }, [paymentMode, cashBalance, cardBalance]);
 
     const selectDrink = useCallback(
         (drinkId: number) => {
@@ -55,29 +67,38 @@ export const useVendingMachine = () => {
                 return;
             }
 
-            if (paymentMode === 'cash' && balance < drink.price) {
+            if (balance < drink.price) {
                 setMessage({ text: '잔액이 부족합니다', status: 'error' });
                 return;
             }
 
             if (paymentMode === 'cash') {
-                setBalance((prevBalance) => prevBalance - drink.price);
+                const newBalance = balance - drink.price;
+                const newCashBalance = cashBalance - drink.price;
+                setBalance(newBalance);
+                setCashBalance(newCashBalance);
+            } else if (paymentMode === 'card') {
+                const newBalance = balance - drink.price;
+                const newCardBalance = cardBalance - drink.price;
+                setBalance(newBalance);
+                setCardBalance(newCardBalance);
             }
 
             const newDrinks = drinks.map((d) =>
                 d.id === drinkId ? { ...d, stock: d.stock - 1 } : d
             );
             setDrinks(newDrinks);
+
             setMessage({ text: `${drink.name} 맛있게 드세요!`, status: 'success' });
         },
-        [balance, drinks, paymentMode]
+        [balance, drinks, paymentMode, cashBalance, cardBalance]
     );
 
     const returnChange = useCallback(() => {
         if (paymentMode === 'card') {
             setMessage({ text: '카드 결제가 완료되었습니다.', status: 'success' });
             setPaymentMode('cash');
-            setBalance(0);
+            setBalance(cashBalance);
             return;
         }
 
@@ -87,11 +108,12 @@ export const useVendingMachine = () => {
                 status: 'success',
             });
             setBalance(0);
+            setCashBalance(0);
             return;
         }
 
         setMessage({ text: '반환할 잔돈이 없습니다', status: 'error' });
-    }, [balance, paymentMode]);
+    }, [balance, paymentMode, cashBalance]);
 
     return {
         drinks,
@@ -99,7 +121,7 @@ export const useVendingMachine = () => {
         paymentMode,
         message,
         insertCash,
-        insertCard,
+        toggleInsertCard,
         selectDrink,
         returnChange,
     };

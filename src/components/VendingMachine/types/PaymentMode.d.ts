@@ -1,1 +1,1 @@
-export type PaymentMode = 'cash' | 'card' | '';
+export type PaymentMode = '' | 'cash' | 'card';
