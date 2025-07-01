@@ -1,4 +1,4 @@
-import type { Drink as DrinkType } from './types/Drink';
+import type { Drink as DrinkType } from '../../types/drink';
 
 type DrinkProps = {
     drink: DrinkType;

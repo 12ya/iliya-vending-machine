@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
-import type { PaymentMode } from './types/PaymentMode';
+import type { PaymentMode } from '../../types/payment-mode';
 
-import { Display } from './Display';
-import { BalanceDisplay } from './BalanceDisplay';
+import { BalanceDisplay } from './balance-display';
+import { Display } from './display';
 
 type InsertProps = {
     children: ReactNode;

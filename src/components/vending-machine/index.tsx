@@ -1,10 +1,10 @@
 import React from 'react';
-import { CASH_OPTIONS, useVendingMachine } from './hooks/useVendingMachine';
 
-import { Drink } from './Drink';
-import { CashButton } from './CashButton';
-import { Insert } from './Insert';
-import { Display } from './Display';
+import { Drink } from './drink';
+import { CashButton } from './cash-button';
+import { Insert } from './insert';
+import { Display } from './display';
+import { CASH_OPTIONS, useVendingMachine } from '../../hooks/use-vending-machine';
 
 const VendingMachine: React.FC = () => {
     const {
@@ -20,9 +20,9 @@ const VendingMachine: React.FC = () => {
     } = useVendingMachine();
 
     return (
-        <div className='w-full max-w-2xl mx-auto p-2 md:p-6 bg-black border-4 border-cyan-400 rounded-lg shadow-2xl shadow-cyan-400/20'>
-            <div className='p-2 md:p-5 bg-gray-900 border-2 border-gray-700 rounded-lg'>
-                <h1 className='mb-2 md:mb-5 text-xl md:text-3xl font-bold text-center text-cyan-400 font-mono tracking-wider'>
+        <div className='w-full max-w-2xl p-2 mx-auto bg-black border-4 rounded-lg shadow-2xl md:p-6 border-cyan-400 shadow-cyan-400/20'>
+            <div className='p-2 bg-gray-900 border-2 border-gray-700 rounded-lg md:p-5'>
+                <h1 className='mb-2 font-mono text-xl font-bold tracking-wider text-center md:mb-5 md:text-3xl text-cyan-400'>
                     || 12'S 자판기 ||
                 </h1>
 
@@ -38,7 +38,7 @@ const VendingMachine: React.FC = () => {
                     </Display>
                 </div>
 
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-3 mb-2 md:mb-5'>
+                <div className='grid grid-cols-1 gap-1 mb-2 md:grid-cols-2 md:gap-3 md:mb-5'>
                     {drinks.map((drink) => (
                         <Drink key={drink.id} drink={drink} onClick={() => selectDrink(drink.id)} />
                     ))}

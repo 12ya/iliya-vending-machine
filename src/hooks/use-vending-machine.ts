@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
-import type { Drink } from '../types/Drink';
-import type { PaymentMode } from '../types/PaymentMode';
+import type { Drink } from '../types/drink';
+import type { PaymentMode } from '../types/payment-mode';
 
 const INITIAL_DRINKS: Drink[] = [
     { id: 1, name: '콜라', price: 1100, stock: 5 },
