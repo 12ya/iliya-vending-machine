@@ -12,12 +12,15 @@ export const CASH_OPTIONS = [100, 500, 1000, 5000, 10000];
 export const useVendingMachine = () => {
     const [drinks, setDrinks] = useState<Drink[]>(INITIAL_DRINKS);
     const [balance, setBalance] = useState<number>(0);
-    const [message, setMessage] = useState<string>('현금/카드 넣어주세요');
+    const [message, setMessage] = useState<{ message: string; status: 'success' | 'error' }>({
+        message: '현금/카드 넣어주세요',
+        status: 'success',
+    });
 
     const insertCoin = useCallback((amount: number) => {
         setBalance((prevBalance) => {
             const newBalance = prevBalance + amount;
-            setMessage(`${newBalance.toLocaleString()}원`);
+            setMessage({ message: `${newBalance.toLocaleString()}원`, status: 'success' });
             return newBalance;
         });
     }, []);
@@ -27,17 +30,17 @@ export const useVendingMachine = () => {
             const drink = drinks.find((d) => d.id === drinkId);
 
             if (!drink) {
-                setMessage('잘못된 선택입니다');
+                setMessage({ message: '잘못된 선택입니다', status: 'error' });
                 return;
             }
 
             if (drink.stock === 0) {
-                setMessage('재고가 없습니다');
+                setMessage({ message: '재고가 없습니다', status: 'error' });
                 return;
             }
 
             if (balance < drink.price) {
-                setMessage('잔액이 부족합니다');
+                setMessage({ message: '잔액이 부족합니다', status: 'error' });
                 return;
             }
 
@@ -49,17 +52,20 @@ export const useVendingMachine = () => {
             );
             setDrinks(newDrinks);
 
-            setMessage(`${drink.name} 맛있게 드세요!`);
+            setMessage({ message: `${drink.name} 맛있게 드세요!`, status: 'success' });
         },
         [balance, drinks]
     );
 
     const returnChange = useCallback(() => {
         if (balance > 0) {
-            setMessage(`${balance}원을 반환했습니다.`);
+            setMessage({
+                message: `${balance.toLocaleString()}원을 반환했습니다.`,
+                status: 'success',
+            });
             setBalance(0);
         } else {
-            setMessage('반환할 잔돈이 없습니다');
+            setMessage({ message: '반환할 잔돈이 없습니다', status: 'error' });
         }
     }, [balance]);
 

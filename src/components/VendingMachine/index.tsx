@@ -8,26 +8,45 @@ const VendingMachine: React.FC = () => {
     const { drinks, balance, message, returnChange, selectDrink, insertCoin } = useVendingMachine();
 
     return (
-        <div className='w-full max-w-md p-8 text-white bg-gray-800 rounded-lg shadow-lg'>
-            <h1 className='mb-6 text-4xl font-bold text-center'>12's 자판기</h1>
+        <div className='w-full max-w-2xl p-8 bg-black border-4 border-cyan-400 rounded-lg shadow-2xl shadow-cyan-400/20'>
+            <div className='p-6 bg-gray-900 border-2 border-gray-700 rounded-lg'>
+                <h1 className='mb-6 text-4xl font-bold text-center text-cyan-400 font-mono tracking-wider'>
+                    || 12'S 자판기 ||
+                </h1>
 
-            <div className='p-4 mb-6 text-center bg-gray-900 rounded-lg'>
-                <p className='font-mono text-2xl' data-testid='message-display'>
-                    {message}
-                </p>
+                <div className='p-6 mb-6 bg-black border-2 border-yellow-400 rounded-lg shadow-inner'>
+                    <div className='p-4 bg-gray-900 border border-gray-600 rounded'>
+                        <p
+                            className={`font-mono text-2xl text-center text-green-400 tracking-wide ${
+                                message.status === 'error' ? 'text-red-400' : ''
+                            }`}
+                            data-testid='message-display'
+                        >
+                            {message.message}
+                        </p>
+                    </div>
+                </div>
+
+                <div className='grid grid-cols-2 gap-4 mb-6'>
+                    {drinks.map((drink) => (
+                        <DrinkComponent
+                            key={drink.id}
+                            drink={drink}
+                            onClick={() => selectDrink(drink.id)}
+                        />
+                    ))}
+                </div>
+
+                <InsertComponent balance={balance} onReturn={returnChange}>
+                    {CASH_OPTIONS.map((option) => (
+                        <CashButton
+                            key={option}
+                            option={option}
+                            onClick={() => insertCoin(option)}
+                        />
+                    ))}
+                </InsertComponent>
             </div>
-
-            <div className='grid grid-cols-2 gap-4 mb-6'>
-                {drinks.map((drink) => (
-                    <DrinkComponent key={drink.id} drink={drink} onClick={() => selectDrink(drink.id)} />
-                ))}
-            </div>
-
-            <InsertComponent balance={balance} onReturn={returnChange}>
-                {CASH_OPTIONS.map((option) => (
-                    <CashButton key={option} option={option} onClick={() => insertCoin(option)} />
-                ))}
-            </InsertComponent>
         </div>
     );
 };
