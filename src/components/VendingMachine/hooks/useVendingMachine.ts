@@ -7,7 +7,7 @@ const INITIAL_DRINKS: Drink[] = [
     { id: 3, name: '커피', price: 700, stock: 8 },
 ];
 
-const CASH_OPTIONS = [100, 500, 1000, 5000, 10000];
+export const CASH_OPTIONS = [100, 500, 1000, 5000, 10000];
 
 export const useVendingMachine = () => {
     const [drinks, setDrinks] = useState<Drink[]>(INITIAL_DRINKS);
@@ -70,6 +70,5 @@ export const useVendingMachine = () => {
         insertCoin,
         selectDrink,
         returnChange,
-        CASH_OPTIONS,
     };
 };
